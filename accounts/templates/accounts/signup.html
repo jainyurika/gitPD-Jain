@@ -1,0 +1,59 @@
+{% extends 'accounts/authbase.html' %}
+{% load static %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block body %}
+{{ form.media }}
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+        <h1 class="text-warning">Sign Up</h1>
+        <br>
+        <form method="POST" action="" class="row row-cols-2 g-3 d-flex justify-content-center">
+            {% csrf_token %}
+            <div class="col-md-6">
+                {{form.username}}
+            </div>
+            <div class="col-md-6">
+                {{form.email}}
+                
+            </div>
+            {% comment %} <div class="col-md-3 input-group mb3">
+                {{form.email}}
+                <span class="input-group-text" id="basic-addon3">Enter an asu.edu email</span>
+                <div class="bg-warning" id="error-msg">
+                    {{form.email.errors|striptags}}
+                </div>
+            </div> {% endcomment %}
+            <div class="col-md-6">
+                {{form.password1}}
+            </div>
+            <div class="col-md-6">
+                {{form.password2}}
+            </div>
+            <div class="col-md-6">
+                {{form.experience}}
+            </div>
+            <div class="col-md-6">
+                {{form.phone}}
+            </div>
+            <div class="col-md-6">
+                {{form.dob}}
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <input type="submit" value="Sign Up" id="login-form-submit" class="btn btn-warning">
+            </div>
+            <div class="bg-warning col-md-10" id="error-msg">
+                    {{form.errors}}
+            </div>
+        </form>
+            <p></p>
+            <div class="d-flex justify-content-center align-items-center mx-auto">
+                <h3 class="text-warning">Already an User? <a id="anchor-link" href="{% url 'login' %}"
+                        style="text-decoration: none;" class="btn btn-warning">Login</a></h3>
+            </div>
+    </div>
+</div>
+{% endblock %}

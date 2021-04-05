@@ -1,0 +1,21 @@
+{% extends 'accounts/authbase.html' %}
+{% load static %}
+
+{% block title %}
+Account Created.
+{% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center">
+    <div class="col-11">
+        {% for message in messages %}
+            <h1 class="display-4 text-light">{{message}},</h1>
+        {% endfor %}
+        <h2 class="text-light" id="header">Your account has been created.</h2>
+        <h4 class="text-light">You will now be redirected to the Login page.</h4>
+        <br>
+        <p class="text-light">If it has been more than 5 seconds, and you are still not redirected, click below.</p>
+        <h2><a id="anchor-link" class="btn btn-warning" href="{% url 'login' %}" style="text-decoration: none;">Login</a></h2>
+    </div>
+</div>
+{% endblock %}

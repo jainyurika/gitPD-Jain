@@ -1,0 +1,103 @@
+{% extends 'accounts/authbase.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+    <form id="login-form" method="POST" action="">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>
+                <h1 class="text-warning">Login</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <div class="input-group">
+                        <input type="text" name="username" placeholder="Username" class="form-control"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="form">
+                    </div>
+                    <div class="input-groupp">
+                        <input type="password" name="password" placeholder="Password" class="form-control"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="form">
+                    </div>
+                </div>
+            <p></p>
+        </tr>
+        <tr>
+            <td class="d-flex justify-content-center">
+                <h6 class="text-warning">Drag the images to form WASD.</h6>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="captcha">
+                <table id="login-form" class="d-flex justify-content-center align-items-center">
+                    <tr>
+                        <td>
+                            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                        <td>
+                            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                        <td>
+                            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                        <td>
+                            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </td>
+                    </tr>
+                </table>
+                <table id="login-form" class="d-flex justify-content-center align-items-center">
+                    <tr>
+                        <td>
+                            <div id="div1">
+                                <img src="{% static 'images/down.jpg' %}" draggable="true" ondragstart="drag(event)"
+                                    class="captcha-img" id="s" height="30px">
+                            </div>
+                        </td>
+                        <td>
+                            <div id="div1">
+                                <img src="{% static 'images/left.jpg' %}" draggable="true" ondragstart="drag(event)"
+                                    class="captcha-img" id="a" height="30px">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="div1">
+                                <img src="{% static 'images/right.jpg' %}" draggable="true" ondragstart="drag(event)"
+                                    class="captcha-img" id="d" height="30px">
+                            </div>
+                        </td>
+                        <td>
+                            <div id="div1">
+                                <img src="{% static 'images/up.jpg' %}" draggable="true" ondragstart="drag(event)"
+                                    class="captcha-img" id="w" height="30px">
+                            </div>
+                            <br>
+                        </td>
+                    </tr>
+                </table>
+                <p></p>
+            </td>
+        </tr>
+    </table>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <input type="submit" value="Login" id="login-form-submit" class="btn btn-warning disabled">
+    </div>
+    <p></p>
+    <div class="d-flex justify-content-center align-items-center mx-auto">
+        <h3 class="text-light">New User? <a id="anchor-link" href="{% url 'signup' %}" class="btn btn-warning">Register</a></h3>
+    </div>
+
+</form>
+{% endblock %}
