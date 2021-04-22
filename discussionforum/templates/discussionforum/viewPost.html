@@ -1,0 +1,108 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Discussion | {{post.title}}
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-md-center" id="bg-pattern" style="min-height: 100vh">
+    <div class="row" style="height: 100px;">
+    </div>
+    <section class="d-flex justify-content-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-10 mb-1">
+                    <div class="card box-shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                                    {% comment %} <img src="{{post.author.profile_pic.url}}" alt="..."
+                                        class="rounded-circle mb-2 img-thumbnail"> {% endcomment %}
+                                    <small class="card-text text-muted">{{post.author}}</small>
+                                    <small class="card-text text-muted">{{post.date|naturaltime}}</small>
+                                    {% if post.author.id == request.user.id %}
+                                        <a href="{% url "deletePost" post.slug %}">
+                                            <span style="color: #a64e4e;">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-10">
+                                    <h1 class="display-6">{{post.title}}</h1>
+                                    <hr>
+                                    <p class="card-text" style="font-size:1.1rem;">{{post.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for comment in comments %}
+            <div class="row d-flex justify-content-center">
+                <div class="col-10 mb-0">
+                    <div class="card box-shadow">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                                    {% comment %} <img src="{{comment.author.profile_pic.url}}" alt="..."
+                                        class="rounded-circle img-thumbnail mt-2" width="60"> {% endcomment %}
+                                    <small style="font-size: smaller">{{comment.author}}
+                                    </small>
+                                    <small class="text-muted mb-1" style="font-size: smaller">{{post.date|naturaltime}}</small>
+                                </div>
+                                <div class="col-10 d-flex align-items-center"> 
+                                    <p class="mt-3" style="margin-right:1em">{{comment.description}}</p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row d-flex justify-content-center">
+                <div class="col-10 mt-1">
+                    <div class="card box-shadow d-flex justify-content-center">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-1 d-flex justify-content-center align-items-center">
+                                    {% comment %} <img src="{{request.user.profile_pic.url}}" alt="..."
+                                        class="rounded-circle mb-2 img-thumbnail mt-3" style="margin-left:1em" width="60"> {% endcomment %}
+                                    <p>{{request.user}}</p>
+                                </div>
+                                <div class="col-11">
+                                    <form action="" method="POST">
+                                    {% csrf_token %}
+                                        <p class="mt-3" style="margin-right:1em">{{form.description}}</p>
+                                        <input type="submit" value="Comment" id="login-form-submit" class="btn btn-warning mb-3">
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row" style="height: 100px;">
+    </div>
+</div>
+{% endblock %}
+{% comment %} <div class="row d-flex justify-content-center">
+                <div class="col-10 mb-1">
+                    <div class="card box-shadow d-flex justify-content-center">
+                            <div class="row d-flex justify-content-between align-items-end">
+                                <div class="col-1 d-flex justify-content-center align-items-end">
+                                    <img src="{{post.author.profile_pic.url}}" alt="..."
+                                        class="rounded-circle mb-2 img-thumbnail mb-1" style="margin-left:1em" width="60">
+                                    </p>
+                                </div>
+                                <div class="col-11">
+                                    <form action="" method="POST">
+                                    {% csrf_token %}
+                                        <p class="mt-3" style="margin-right:1em">{{form.description}}</p>
+                                        <input type="submit" value="Comment" id="login-form-submit" class="btn btn-warning mb-3">
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}

@@ -1,0 +1,107 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Discussion Forum
+{% endblock %}
+
+{% block body %}
+<div class="row " id="bg-pattern" style="min-height: 100vh">
+    <div style="height: 100px">
+    </div>
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Discussion Forum</h1>
+                <p class="lead text-muted">Gamers! Make it short and sweet, but not
+                    too short so folks don't simply skip over it entirely.</p>
+                <p>
+                    <a href="{% url 'CreatePost' %}" class="btn btn-primary my-2"><i class="fas fa-plus"></i> New
+                        Post</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="d-flex justify-content-center">
+            <div class="album py-3 bg-light col-8">
+                <div class="container">
+                    <div class="row">
+                        {% if posts %}
+                        {% for post in posts %}
+                        <div class="col-12 mb-1">
+                            <div class="card box-shadow">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-1 d-flex align-content-center justify-content-center flex-wrap">
+                                            {% comment %} <img src="{{post.author.profile_pic.url}}" alt="..."
+                                                class="rounded-circle mb-2 img-thumbnail"> {% endcomment %}
+                                            <p class="text-muted">{{post.author}}</p>
+                                        </div>
+                                        <div class="col-11">
+                                            <h1 class="display-6"><a href='{% url 'viewPost' post.slug %}'
+                                                    style="text-decoration: none">{{post.title}}</a></h1>
+                                            <p class="card-text">{{post.description|truncatewords:44 }}</p>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <small class="text-muted">{{post.date|naturaltime}}</small>
+                                                </div>
+                                                <div>
+                                                    {% if request.user.id == post.author.id %}
+                                                    <a href="{% url 'UpdatePost' post.slug %}"
+                                                        style="text-decoration: none">
+                                                        <span style="color: Dodgerblue;">
+                                                            <i class="far fa-edit"></i>
+                                                        </span>
+                                                    </a>
+                                                    {% comment %} <a data-bs-toggle="modal" href="#exampleModal{{post.id}}">
+                                                        <span style="color: Red;">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </span>
+                                                    </a> {% endcomment %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <h1 class="display-6 text-center text-muted">No posts have been created yet. <a
+                                href="{% url 'CreatePost' %}" style="text-decoration: none">Make</a> the first one.</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal -->
+{% for post in posts %}
+{% if request.user.id == post.author.id %}
+<div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Are you sure you want to delete?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="display-6">{{post.title}}</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

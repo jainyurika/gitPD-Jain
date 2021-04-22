@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Discussion | {{post.title}}
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-md-center" id="bg-pattern" style="min-height: 100vh">
+    <div class="row" style="height: 100px;">
+    </div>
+    <section class="d-flex justify-content-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-10 mb-1">
+                    <div class="card box-shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h1 class="display-5">Are you sure you want to delete?</h1>
+                                    <hr>
+                                    <p class="card-text display-6">{{post.title}}</p>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" name="Confirm" class="btn btn-danger">
+                                        <a href="{% url "viewPost" post.slug %}" class="btn btn-secondary">Cancel</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row" style="height: 100px;">
+    </div>
+</div>
+{% endblock %}

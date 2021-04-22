@@ -1,4 +1,4 @@
-body {
+body.auth {
     background-image: url("../images/auth-bg.jfif");
     background-size: cover;
 }

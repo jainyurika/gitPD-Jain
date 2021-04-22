@@ -1,4 +1,4 @@
-"""gamesphere URL Configuration
+"""sdCorner URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,12 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
-from django.urls.conf import include
+from .views import DiscForumHome, CreatePost, ViewPost, UpdatePost, DeletePost
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('discussionforum.urls')),
+    path('discussionforum/create/', CreatePost, name='CreatePost'),
+    path('discussionforum/update/<str:slug>/', UpdatePost, name='UpdatePost'),
+    path('discussionforum/', DiscForumHome, name='DiscForumHome'),
+    path('discussionforum/post/<str:slug>/', ViewPost, name='viewPost'),
+    path('discussionforum/post/<str:slug>/delete/', DeletePost, name='deletePost'),
+    
 ]

@@ -1,0 +1,34 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}
+Create Post
+{% endblock %}
+
+{% block body %}
+<div class="row" id="bg-pattern" style="min-height: 100vh">
+    <div style="height: 59px">
+    </div>
+    <div class="col-md-6 mx-auto">
+        <div class="bg-white shadow rounded">
+            <div class="px-4 py-3">
+                <h1 class="mb-0 display-4">{% if update == True %}Update Post{% else %}Create New Post{% endif %}</h1>
+                <hr>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="staticEmail"
+                            class="col-sm-1 col-form-label"><strong>{{form.title.label}}</strong></label>
+                        <div class="col-sm-11">
+                            <p>{{form.title}}</p>
+                        </div>
+                    </div>
+                    <h5>{{form.description.label}}</h5>
+                    <p>{{form.description}}</p>
+                    <input type="submit" value="Submit" id="login-form-submit" class="btn btn-warning">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
